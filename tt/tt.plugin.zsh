@@ -41,12 +41,3 @@ tmsg(){
   printf "\033]9;[%s]\a" "${history[$((HISTCMD-2))]} finished with $?"
 }
 
-# compdef tc
-_tc() {
-    local -a color
-    color=(red green yellow clean)
-    _arguments "1:color:(${color[*]})"
-    return 0
-}
-
-compdef _tc tc

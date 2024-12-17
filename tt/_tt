@@ -1,0 +1,11 @@
+#!/bin/zsh
+
+# compdef tc
+_tc() {
+    local -a color
+    color=(red green yellow clean)
+    _arguments "1:color:(${color[*]})"
+    return 0
+}
+
+compdef _tc tc
