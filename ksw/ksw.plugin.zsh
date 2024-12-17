@@ -25,3 +25,17 @@ ksw(){
   esac
   export KUBECONFIG=~/.kube/admin.conf-"${env}".yaml
 }
+
+# compdef ksw
+_ksw() {
+    local -a environments
+    environments=(dev prd minikube heytea)
+
+    _arguments "1:environment:(${environments[*]})"
+    return 0
+}
+
+compdef _ksw ksw
+
+# 设置补全样式
+zstyle ':completion:*:*:ksw:*:descriptions' format '%F{blue}选择环境:%f'
