@@ -1,9 +1,9 @@
 #!/bin/zsh
 # require tspin https://github.com/bensadeh/tailspin
-cat() {
+bat() {
   if [ $# -ne 1 ]; then
-    echo "Usage: cat file"
+    echo "Usage: bat file"
     exit 1
   fi
-  /bin/cat "$1" | tspin
+  cat "$1" | tspin
 }
