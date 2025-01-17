@@ -18,9 +18,11 @@ ksw(){
         ;;
     dev)
         tc green
+        tt dev@k8s
         ;;
     minikube)
         tc yellow
+        tt minikube@k8s
         ;;
   esac
   export KUBECONFIG=~/.kube/admin.conf-"${env}".yaml
