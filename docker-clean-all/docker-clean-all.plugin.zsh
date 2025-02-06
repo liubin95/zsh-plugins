@@ -2,16 +2,16 @@
 
 docker-clean-all() {
   # 判断时docker还是podman
-  if command -v docker &>/dev/null; then
-    DOCKER=docker
-  elif command -v podman &>/dev/null; then
+  if command -v podman &>/dev/null; then
     DOCKER=podman
+  elif command -v docker &>/dev/null; then
+    DOCKER=docker
   else
     echo "No docker or podman installed."
     return 1
   fi
   # 删除所有停止的容器
-  if [ "$(docker ps -a -q)" ]; then
+  if [ "$($DOCKER ps -a -q)" ]; then
     $DOCKER rm $($DOCKER ps -a -q)
   else
     echo "No containers to remove."
