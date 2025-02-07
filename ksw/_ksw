@@ -3,7 +3,8 @@
 # compdef ksw
 _ksw() {
     local -a environments
-    environments=(dev prd minikube heytea)
+    # 从环境变量获取
+    environments=(${(s: :)KSW_ENVIRONMENTS})
 
     _arguments "1:environment:(${environments[*]})"
     return 0
