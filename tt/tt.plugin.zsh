@@ -13,31 +13,11 @@ tc() {
     echo "错误: 无效的环境 $1. 有效选项为: ${valids[*]}"
     return 1
   fi
-  case "$color" in
-    red)
-      printf "\033]6;1;bg;red;brightness;255\a"
-      printf "\033]6;1;bg;green;brightness;85\a"
-      printf "\033]6;1;bg;blue;brightness;85\a"
-      ;;
-    green)
-      printf "\033]6;1;bg;red;brightness;80\a"
-      printf "\033]6;1;bg;green;brightness;250\a"
-      printf "\033]6;1;bg;blue;brightness;113\a"
-      ;;
-    yellow)
-      printf "\033]6;1;bg;red;brightness;241\a"
-      printf "\033]6;1;bg;green;brightness;250\a"
-      printf "\033]6;1;bg;blue;brightness;140\a"
-      ;;
-    clean)
-      printf "\033]6;1;bg;*;default\a"
-      ;;
-  esac
+  printf "\033]1337;SetUserVar=tab_color=%s\007" $(echo -n "$color" | base64)
+
 }
 
 # sleep 5 && tmsg
 tmsg() {
-  local previous_command=$(fc -ln -1)
-  local exit_status=$?
-  printf "\e]9;%s\e\\" "$previous_command finished with $exit_status"
+  printf "\033]9;%s\007" "job finished"
 }
