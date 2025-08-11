@@ -130,9 +130,3 @@ clean-cache() {
   echo ""
   echo "🎉 系统缓存清理完成！"
 }
-
-function main() {
-  clean-cache
-}
-
-main "$@"
