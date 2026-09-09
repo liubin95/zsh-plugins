@@ -6,7 +6,7 @@ jump() {
   local otp attempt
 
   for attempt in 1 2 3; do
-    if otp=$(op read "op://Private/jump/Section_drs677xgvca4do6l2wlb7c6ooi/TOTP_fqixp4kdxxsfwsivwnih37gcmu?attribute=otp") \
+    if otp=$(op item get "jump" --vault "Private" --otp) \
       && [[ -n "$otp" ]]; then
       sshpass -o "$otp" -O '[OTP Code]:' \
         ssh -p 2222 security@172.16.70.91
