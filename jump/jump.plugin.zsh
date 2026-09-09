@@ -3,6 +3,22 @@
 # ssh with password and otp
 
 jump() {
-  readonly otp=$(op read "op://Private/jump/Section_drs677xgvca4do6l2wlb7c6ooi/TOTP_fqixp4kdxxsfwsivwnih37gcmu?attribute=otp")
-  sshpass -p$(op read "op://Private/jump/password" -n) -o $otp -O '[OTP Code]:' ssh $(op read "op://Private/jump/username" -n)
+  local otp attempt
+
+  for attempt in 1 2 3; do
+    if otp=$(op read "op://Private/jump/Section_drs677xgvca4do6l2wlb7c6ooi/TOTP_fqixp4kdxxsfwsivwnih37gcmu?attribute=otp") \
+      && [[ -n "$otp" ]]; then
+      sshpass -o "$otp" -O '[OTP Code]:' \
+        ssh -p 2222 security@172.16.70.91
+      return $?
+    fi
+
+    if (( attempt < 3 )); then
+      printf 'op read 失败（%s/3），2 秒后重试\n' "$attempt" >&2
+      sleep 2
+    fi
+  done
+
+  printf '获取 OTP 失败，取消 SSH 连接\n' >&2
+  return 1
 }
